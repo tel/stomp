@@ -9,6 +9,9 @@ module type Html5_DSL = sig
   (** Abstract attributes *)
   type attr
 
+  (** Free text can be inserted into an Html5 document *)
+  val text : string -> t
+  
   (************************************************************)
 
   (** The [El] module contains all of the HTML 5 element
@@ -314,6 +317,11 @@ end
 module type Html5 = sig
   type t
   type attr
+
+  val text : string -> t
+  
+  (** Content creation functions, not to be exported into the DSL *)
+  
   val mk_node : name:string -> ?attributes:attr list -> t list -> t
   val mk_leaf : name:string -> ?attributes:attr list -> unit   -> t
   val mk_attr : name:string -> string -> attr
@@ -616,7 +624,9 @@ module Html5_Initial = struct
   type t =
     | Node of string * attr list * t list
     | Text of string
-        
+
+  let text t = Text t
+  
   let mk_node ~name ?attributes:(a = []) children = Node (name, a, children)
   let mk_leaf ~name ?attributes:(a = []) _        = Node (name, a, [])
   let mk_attr ~name value                         = (name, value)
