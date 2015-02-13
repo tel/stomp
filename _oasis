@@ -7,9 +7,10 @@ License:     BSD-3-clause
 Plugins:     META (0.4), StdFiles (0.4), DevFiles (0.4)
 
 Library stomp
-  Path:       src
-  BuildTools: ocamlbuild
-  Modules:    Std
+  Path:            src
+  BuildTools:      ocamlbuild
+  Modules:         Std
+  InternalModules: Html5
 
 AlphaFeatures: ocamlbuild_more_args
 Document stomp_api
